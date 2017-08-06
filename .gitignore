@@ -2,3 +2,8 @@ compilador
 *.swp
 *.yy.c
 *.o
+Sintatico
+sandbox/out*
+sintatico.h
+sintatico.y.c
+sintatico.lex.c

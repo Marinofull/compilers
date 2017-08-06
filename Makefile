@@ -20,8 +20,7 @@ lex.yy.c: lexico.l
 	lex lexico.l
 
 clean:
-	rm -f Sintatico
-	rm -f sandbox/out*
+	rm -f Sintatico sandbox/out* *.o sintatico.h sintatico.y.c sintatico.lex.c
 
 runtests: all
 	./run-sandbox

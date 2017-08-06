@@ -1,0 +1,33 @@
+CCC = g++
+CCFLAGS= -O2
+LEX = flex
+LFLAGS = -8
+YACC = bison
+YFLAGS = -d -t -y
+
+RM = rm -f
+
+all: exp
+
+debug: y.tab.o lex.yy.o deb
+	${CCC} ${CCFLAGS} lex.yy.o y.tab.o exp.o -o exp -lfl
+
+exp: y.tab.o lex.yy.o exp.o
+	${CCC} ${CCFLAGS} lex.yy.o y.tab.o exp.o -o exp -lfl
+
+deb: exp.cpp exp.h
+	${CCC} -D DEBUG -c exp.cpp
+
+exp.o: exp.cpp exp.h
+	${CCC} -c exp.cpp
+
+y.tab.o: exp.y
+	${YACC} ${YFLAGS} exp.y
+	${CCC} ${CCFLAGS} -fpermissive y.tab.c -c
+
+lex.yy.o: exp.lex
+	${LEX} $(LFLAGS) exp.lex
+	${CCC} ${CCFLAGS} lex.yy.c -c
+
+clean:
+	rm -f lex.yy.* *.tab.* *.o exp
